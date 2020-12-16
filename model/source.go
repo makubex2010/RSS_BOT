@@ -89,7 +89,7 @@ func FindOrNewSourceByUrl(url string) (*Source, error) {
 			feed, err := rss.FetchByFunc(fetchFunc, url)
 
 			if err != nil {
-				return nil, fmt.Errorf("Feed 抓取错误 %v", err)
+				return nil, fmt.Errorf("Feed 抓取錯誤 %v", err)
 			}
 
 			source.Title = feed.Title
