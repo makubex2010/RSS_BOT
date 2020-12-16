@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-//feedSetAuth 验证订阅设置按钮点击者权限
+//feedSetAuth 驗證訂閱按鈕點擊者權限
 func feedSetAuth(c *tb.Callback) bool {
 	if (c.Message.Chat.Type == tb.ChatGroup || c.Message.Chat.Type == tb.ChatSuperGroup) &&
 		!userIsAdminOfGroup(c.Sender.ID, c.Message.Chat) {
@@ -17,7 +17,7 @@ func feedSetAuth(c *tb.Callback) bool {
 
 	data := strings.Split(c.Data, ":")
 	subscriberID, _ := strconv.Atoi(data[0])
-	// 如果订阅者与按钮点击者id不一致，需要验证管理员权限
+	// 如果訂閱者與按鈕點擊者id不一致，需要驗證管理員權限
 	if subscriberID != c.Sender.ID {
 		channelChat, err := B.ChatByID(fmt.Sprintf("%d", subscriberID))
 
@@ -34,12 +34,12 @@ func feedSetAuth(c *tb.Callback) bool {
 }
 
 func checkPermit(userID int64, chatID int64) bool {
-	// 个人用户
+	// 個人用户
 	if userID == chatID {
 		return true
 	}
 
-	// 群组或频道
+	// 群組或频道
 	chat, err := B.ChatByID(fmt.Sprintf("%d", chatID))
 
 	if err != nil {
