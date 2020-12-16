@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	// UserState 用户状态，用于标示当前用户操作所在状态
+	// UserState 用户状態，用於標示當前用户操作所在状態
 	UserState map[int64]fsm.UserStatus = make(map[int64]fsm.UserStatus)
 
 	// B telebot
@@ -25,7 +25,7 @@ func init() {
 	poller := &tb.LongPoller{Timeout: 10 * time.Second}
 	spamProtected := tb.NewMiddlewarePoller(poller, func(upd *tb.Update) bool {
 		if !isUserAllowed(upd) {
-			// 检查用户是否可以使用bot
+			// 檢查用户是否可以使用bot
 			return false
 		}
 
@@ -65,26 +65,26 @@ func Start() {
 }
 
 func setCommands() {
-	// 设置bot命令提示信息
+	// 設置bot命令提示信息
 	commands := []tb.Command{
-		{"start", "开始使用"},
-		{"sub", "订阅rss源"},
-		{"list", "当前订阅的rss源"},
-		{"unsub", "退订rss源"},
-		{"unsuball", "退订所有rss源"},
+		{"start", "開始使用"},
+		{"sub", "訂閱rss源"},
+		{"list", "當前訂閱的rss源"},
+		{"unsub", "退定rss源"},
+		{"unsuball", "退定所有rss源"},
 
-		{"set", "设置rss订阅"},
-		{"setfeedtag", "设置rss订阅标签"},
-		{"setinterval", "设置rss订阅抓取间隔"},
+		{"set", "設置rss訂閱"},
+		{"setfeedtag", "設置rss訂閱標籤"},
+		{"setinterval", "設置rss訂閱抓取間隔"},
 
-		{"export", "导出订阅为opml文件"},
-		{"import", "从opml文件导入订阅"},
+		{"export", "導出訂閱為opml文件"},
+		{"import", "從opml文件導入訂閱"},
 
-		{"check", "检查我的rss订阅状态"},
-		{"pauseall", "停止抓取订阅更新"},
-		{"activeall", "开启抓取订阅更新"},
+		{"check", "检查我的rss訂閱状態"},
+		{"pauseall", "停止抓取訂閱更新"},
+		{"activeall", "開始抓取訂閱更新"},
 
-		{"help", "使用帮助"},
+		{"help", "使用幫助"},
 		{"version", "bot版本"},
 	}
 
