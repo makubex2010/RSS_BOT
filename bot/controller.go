@@ -107,7 +107,7 @@ func toggleCtrlButtons(c *tb.Callback, action string) {
 func startCmdCtr(m *tb.Message) {
 	user, _ := model.FindOrCreateUserByTelegramID(m.Chat.ID)
 	log.Printf("/start user_id: %d telegram_id: %d", user.ID, user.TelegramID)
-	_, _ = B.Send(m.Chat, fmt.Sprintf("你好，歡迎使用干物妹！小埋。"))
+	_, _ = B.Send(m.Chat, fmt.Sprintf("你好，歡迎使用無料案內所。"))
 }
 
 func subCmdCtr(m *tb.Message) {
@@ -127,7 +127,7 @@ func subCmdCtr(m *tb.Message) {
 		if url != "" {
 			FeedForChannelRegister(m, url, mention)
 		} else {
-			_, _ = B.Send(m.Chat, "频道訂閱請使用' /sub @ChannelID URL ' 命令")
+			_, _ = B.Send(m.Chat, "頻道訂閱請使用' /sub @ChannelID URL ' 命令")
 		}
 	}
 
@@ -168,7 +168,7 @@ func exportCmdCtr(m *tb.Message) {
 		}
 
 		if !senderIsAdmin {
-			_, _ = B.Send(m.Chat, fmt.Sprintf("非频道管理員無法執行此操作"))
+			_, _ = B.Send(m.Chat, fmt.Sprintf("非管理員無法執行此操作"))
 			return
 		}
 
@@ -215,7 +215,7 @@ func listCmdCtr(m *tb.Message) {
 		}
 
 		if !checkPermitOfChat(int64(m.Sender.ID), channelChat) {
-			B.Send(m.Chat, fmt.Sprintf("非频道管理員無法執行此操作"))
+			B.Send(m.Chat, fmt.Sprintf("非管理員無法執行此操作"))
 			return
 		}
 
@@ -296,7 +296,7 @@ func checkCmdCtr(m *tb.Message) {
 		}
 
 		if !senderIsAdmin {
-			_, _ = B.Send(m.Chat, fmt.Sprintf("非频道管理員無法執行此操作"))
+			_, _ = B.Send(m.Chat, fmt.Sprintf("非管理員無法執行此操作"))
 			return
 		}
 
@@ -366,7 +366,7 @@ func setCmdCtr(m *tb.Message) {
 			ownerID = channelChat.ID
 
 		} else {
-			_, _ = B.Send(m.Chat, "非Channel管理員无法執行此操作。")
+			_, _ = B.Send(m.Chat, "非管理員无法執行此操作。")
 			return
 		}
 
@@ -630,7 +630,7 @@ func unsubCmdCtr(m *tb.Message) {
 			}
 
 			if !senderIsAdmin {
-				_, _ = B.Send(m.Chat, fmt.Sprintf("非频道管理員無法執行此操作"))
+				_, _ = B.Send(m.Chat, fmt.Sprintf("非管理員無法執行此操作"))
 				return
 			}
 
@@ -942,7 +942,7 @@ func activeAllCmdCtr(m *tb.Message) {
 		}
 
 		if !senderIsAdmin {
-			_, _ = B.Send(m.Chat, fmt.Sprintf("非频道管理員無法執行此操作"))
+			_, _ = B.Send(m.Chat, fmt.Sprintf("非管理員無法執行此操作"))
 			return
 		}
 
@@ -988,7 +988,7 @@ func pauseAllCmdCtr(m *tb.Message) {
 		}
 
 		if !senderIsAdmin {
-			_, _ = B.Send(m.Chat, fmt.Sprintf("非频道管理員無法執行此操作"))
+			_, _ = B.Send(m.Chat, fmt.Sprintf("非管理員無法執行此操作"))
 			return
 		}
 
@@ -1196,7 +1196,7 @@ func docCtr(m *tb.Message) {
 		}
 
 		if !checkPermitOfChat(int64(m.Sender.ID), channelChat) {
-			_, _ = B.Send(m.Chat, fmt.Sprintf("非频道管理員無法執行此操作"))
+			_, _ = B.Send(m.Chat, fmt.Sprintf("非管理員無法執行此操作"))
 			return
 		}
 
