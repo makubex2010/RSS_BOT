@@ -1,11 +1,11 @@
 package util
 
 import (
-	"github.com/indes/flowerss-bot/log"
+	"github.com/makubex2010/RSS_BOT/log"
 	"net/http"
 	"time"
 
-	"github.com/indes/flowerss-bot/config"
+	"github.com/makubex2010/RSS_BOT/config"
 	"golang.org/x/net/proxy"
 )
 
