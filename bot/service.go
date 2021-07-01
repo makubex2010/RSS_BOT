@@ -29,12 +29,12 @@ func FeedForChannelRegister(m *tb.Message, url string, channelMention string) {
 	}
 
 	if !botIsAdmin {
-		msg, _ = B.Edit(msg, fmt.Sprintf("請先將bot添加為频道管理員"))
+		msg, _ = B.Edit(msg, fmt.Sprintf("請先將bot添加為頻道管理員"))
 		return
 	}
 
 	if !senderIsAdmin {
-		msg, _ = B.Edit(msg, fmt.Sprintf("非频道管理員無法執行此操作"))
+		msg, _ = B.Edit(msg, fmt.Sprintf("非頻道管理員無法執行此操作"))
 		return
 	}
 
@@ -50,7 +50,7 @@ func FeedForChannelRegister(m *tb.Message, url string, channelMention string) {
 
 	if err == nil {
 		newText := fmt.Sprintf(
-			"频道 [%s](https://t.me/%s) 訂閱 [%s](%s) 成功",
+			"頻道 [%s](https://t.me/%s) 訂閱 [%s](%s) 成功",
 			channelChat.Title,
 			channelChat.Username,
 			source.Title,
