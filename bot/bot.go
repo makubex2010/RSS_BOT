@@ -80,7 +80,7 @@ func setCommands() {
 		{"export", "導出訂閱為opml文件"},
 		{"import", "從opml文件導入訂閱"},
 
-		{"check", "检查我的rss訂閱状態"},
+		{"check", "檢查我的rss訂閱状態"},
 		{"pauseall", "停止抓取訂閱更新"},
 		{"activeall", "開始抓取訂閱更新"},
 
