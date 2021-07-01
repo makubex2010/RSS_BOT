@@ -8,10 +8,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/indes/flowerss-bot/bot/fsm"
-	"github.com/indes/flowerss-bot/config"
-	"github.com/indes/flowerss-bot/log"
-	"github.com/indes/flowerss-bot/model"
+	"github.com/makubex2010/RSS_BOT/bot/fsm"
+	"github.com/makubex2010/RSS_BOT/config"
+	"github.com/makubex2010/RSS_BOT/log"
+	"github.com/makubex2010/RSS_BOT/model"
 
 	tb "gopkg.in/tucnak/telebot.v2"
 )
@@ -40,7 +40,7 @@ func toggleCtrlButtons(c *tb.Callback, action string) {
 
 	data := strings.Split(c.Data, ":")
 	subscriberID, _ := strconv.Atoi(data[0])
-	// 如果訂閱者與按钮點擊者id不一致，需要驗證管理員權限
+	// 如果訂閱者與按鈕點擊者id不一致，需要驗證管理員權限
 	if subscriberID != c.Sender.ID {
 		channelChat, err := B.ChatByID(fmt.Sprintf("%d", subscriberID))
 
@@ -232,9 +232,9 @@ func listCmdCtr(m *tb.Message) {
 		}
 
 		sources, _ := model.GetSourcesByUserID(channelChat.ID)
-		rspMessage = fmt.Sprintf("频道 [%s](https://t.me/%s) 訂閱列表：\n", channelChat.Title, channelChat.Username)
+		rspMessage = fmt.Sprintf("頻道 [%s](https://t.me/%s) 訂閱列表：\n", channelChat.Title, channelChat.Username)
 		if len(sources) == 0 {
-			rspMessage = fmt.Sprintf("频道 [%s](https://t.me/%s) 訂閱列表為空", channelChat.Title, channelChat.Username)
+			rspMessage = fmt.Sprintf("頻道 [%s](https://t.me/%s) 訂閱列表為空", channelChat.Title, channelChat.Username)
 		} else {
 			for sub, source := range subSourceMap {
 				rspMessage = rspMessage + fmt.Sprintf("[[%d]] [%s](%s)\n", sub.ID, source.Title, source.Link)
@@ -301,9 +301,9 @@ func checkCmdCtr(m *tb.Message) {
 		}
 
 		sources, _ := model.GetErrorSourcesByUserID(channelChat.ID)
-		message := fmt.Sprintf("频道 [%s](https://t.me/%s) 失效訂閱的列表：\n", channelChat.Title, channelChat.Username)
+		message := fmt.Sprintf("頻道 [%s](https://t.me/%s) 失效訂閱的列表：\n", channelChat.Title, channelChat.Username)
 		if len(sources) == 0 {
-			message = fmt.Sprintf("频道 [%s](https://t.me/%s) 所有訂閱正常", channelChat.Title, channelChat.Username)
+			message = fmt.Sprintf("頻道 [%s](https://t.me/%s) 所有訂閱正常", channelChat.Title, channelChat.Username)
 		} else {
 			for _, source := range sources {
 				message = message + fmt.Sprintf("[[%d]] [%s](%s)\n", source.ID, source.Title, source.Link)
@@ -343,7 +343,7 @@ func setCmdCtr(m *tb.Message) {
 		sources, _ = model.GetSourcesByUserID(m.Chat.ID)
 		ownerID = int64(m.Chat.ID)
 		if len(sources) <= 0 {
-			_, _ = B.Send(m.Chat, "當前没有訂閱源")
+			_, _ = B.Send(m.Chat, "當前沒有訂閱源")
 			return
 		}
 
@@ -352,7 +352,7 @@ func setCmdCtr(m *tb.Message) {
 		channelChat, err := B.ChatByID(mention)
 
 		if err != nil {
-			_, _ = B.Send(m.Chat, "獲取Channel信息错误。")
+			_, _ = B.Send(m.Chat, "獲取Channel信息錯誤。")
 			return
 		}
 
@@ -360,13 +360,13 @@ func setCmdCtr(m *tb.Message) {
 			sources, _ = model.GetSourcesByUserID(channelChat.ID)
 
 			if len(sources) <= 0 {
-				_, _ = B.Send(m.Chat, "Channel没有訂閱源。")
+				_, _ = B.Send(m.Chat, "Channel當前沒有訂閱源。")
 				return
 			}
 			ownerID = channelChat.ID
 
 		} else {
-			_, _ = B.Send(m.Chat, "非管理員无法執行此操作。")
+			_, _ = B.Send(m.Chat, "非管理員無法執行此操作。")
 			return
 		}
 
@@ -376,9 +376,9 @@ func setCmdCtr(m *tb.Message) {
 	replyKeys := [][]tb.ReplyButton{}
 	setFeedItemBtns := [][]tb.InlineButton{}
 
-	// 配置按钮
+	// 配置按鈕
 	for _, source := range sources {
-		// 添加按钮
+		// 添加按鈕
 		text := fmt.Sprintf("%s %s", source.Title, source.Link)
 		replyButton = []tb.ReplyButton{
 			tb.ReplyButton{Text: text},
@@ -606,7 +606,7 @@ func unsubCmdCtr(m *tb.Message) {
 					InlineKeyboard: unsubFeedItemBtns,
 				})
 			} else {
-				_, _ = B.Send(m.Chat, "當前没有訂閱源")
+				_, _ = B.Send(m.Chat, "當前沒有訂閱源")
 			}
 		}
 	} else {
@@ -641,7 +641,7 @@ func unsubCmdCtr(m *tb.Message) {
 				if err.Error() == "record not found" {
 					_, _ = B.Send(
 						m.Chat,
-						fmt.Sprintf("频道 [%s](https://t.me/%s) 未訂閱該RSS源", channelChat.Title, channelChat.Username),
+						fmt.Sprintf("頻道 [%s](https://t.me/%s) 未訂閱該RSS源", channelChat.Title, channelChat.Username),
 						&tb.SendOptions{
 							DisableWebPagePreview: true,
 							ParseMode:             tb.ModeMarkdown,
@@ -659,7 +659,7 @@ func unsubCmdCtr(m *tb.Message) {
 			if err == nil {
 				_, _ = B.Send(
 					m.Chat,
-					fmt.Sprintf("频道 [%s](https://t.me/%s) 退訂 [%s](%s) 成功", channelChat.Title, channelChat.Username, source.Title, source.Link),
+					fmt.Sprintf("頻道 [%s](https://t.me/%s) 退訂 [%s](%s) 成功", channelChat.Title, channelChat.Username, source.Title, source.Link),
 					&tb.SendOptions{
 						DisableWebPagePreview: true,
 						ParseMode:             tb.ModeMarkdown,
@@ -672,7 +672,7 @@ func unsubCmdCtr(m *tb.Message) {
 			return
 
 		}
-		_, _ = B.Send(m.Chat, "频道退訂請使用' /unsub @ChannelID URL ' 命令")
+		_, _ = B.Send(m.Chat, "頻道退訂請使用' /unsub @ChannelID URL ' 命令")
 	}
 
 }
@@ -776,7 +776,7 @@ func unsubAllConfirmBtnCtr(c *tb.Callback) {
 			}
 
 		} else {
-			msg = "非频道管理員無法執行此操作"
+			msg = "非頻道管理員無法執行此操作"
 		}
 	}
 
@@ -860,7 +860,7 @@ func setFeedTagCmdCtr(m *tb.Message) {
 	}
 
 	if !checkPermit(int64(m.Sender.ID), sub.UserID) {
-		B.Send(m.Chat, "没有權限!")
+		B.Send(m.Chat, "沒有權限!")
 		return
 	}
 
@@ -908,14 +908,14 @@ func setIntervalCmdCtr(m *tb.Message) {
 		}
 
 		if !checkPermit(int64(m.Sender.ID), sub.UserID) {
-			_, _ = B.Send(m.Chat, "没有權限!")
+			_, _ = B.Send(m.Chat, "沒有權限!")
 			return
 		}
 
 		_ = sub.SetInterval(interval)
 
 	}
-	_, _ = B.Send(m.Chat, "抓取频率設置成功!")
+	_, _ = B.Send(m.Chat, "抓取頻率設置成功!")
 
 	return
 }
@@ -947,7 +947,7 @@ func activeAllCmdCtr(m *tb.Message) {
 		}
 
 		_ = model.ActiveSourcesByUserID(channelChat.ID)
-		message := fmt.Sprintf("频道 [%s](https://t.me/%s) 訂閱已全部開啟", channelChat.Title, channelChat.Username)
+		message := fmt.Sprintf("頻道 [%s](https://t.me/%s) 訂閱已全部開啟", channelChat.Title, channelChat.Username)
 
 		_, _ = B.Send(m.Chat, message, &tb.SendOptions{
 			DisableWebPagePreview: true,
@@ -993,7 +993,7 @@ func pauseAllCmdCtr(m *tb.Message) {
 		}
 
 		_ = model.PauseSourcesByUserID(channelChat.ID)
-		message := fmt.Sprintf("频道 [%s](https://t.me/%s) 訂閱已全部暫停", channelChat.Title, channelChat.Username)
+		message := fmt.Sprintf("頻道 [%s](https://t.me/%s) 訂閱已全部暫停", channelChat.Title, channelChat.Username)
 
 		_, _ = B.Send(m.Chat, message, &tb.SendOptions{
 			DisableWebPagePreview: true,
@@ -1191,7 +1191,7 @@ func docCtr(m *tb.Message) {
 		// import for channel
 		channelChat, err := B.ChatByID(mention)
 		if err != nil {
-			_, _ = B.Send(m.Chat, "获取channel信息錯誤，請檢查channel id是否正確")
+			_, _ = B.Send(m.Chat, "獲取channel信息錯誤，請檢查channel id是否正確")
 			return
 		}
 
