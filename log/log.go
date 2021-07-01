@@ -2,7 +2,7 @@ package log
 
 import (
 	"fmt"
-	"github.com/indes/flowerss-bot/config"
+	"github.com/makubex2010/RSS_BOT/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	tb "gopkg.in/tucnak/telebot.v2"
